@@ -5,7 +5,7 @@ using Cinestar_WebApi.DAO;
 
 namespace Cinestar_WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CinestarController : ControllerBase
     {
@@ -24,6 +24,20 @@ namespace Cinestar_WebApi.Controllers
         public IActionResult GetCine(int id)
         {
             var lista = _dao.getCine(id);
+            return Ok(lista);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCinePeliculas(int id)
+        {
+            var lista = _dao.getCinePeliculas(id);
+            return Ok(lista);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCineTarifas(int id)
+        {
+            var lista = _dao.getCineTarifas(id);
             return Ok(lista);
         }
     }

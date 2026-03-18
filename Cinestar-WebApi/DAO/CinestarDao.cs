@@ -2,6 +2,7 @@
 using Cinestar_WebApi.Config;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using Cinestar_WebApi.Mapper;
 
 namespace Cinestar_WebApi.DAO
 {
@@ -10,6 +11,7 @@ namespace Cinestar_WebApi.DAO
         private readonly clsBD _bd;
         public CinestarDao(clsBD bd) => _bd = bd;
 
+        // Metodos para obtener datos de los cines
         public List<Cine> getCines()
         {
             DataTable dt = _bd.getDataTable("sp_getCines");
@@ -17,16 +19,8 @@ namespace Cinestar_WebApi.DAO
 
             foreach(DataRow row in dt.Rows)
             {
-                cines.Add(new Cine
-                {
-                    idCine = (int)row["id"],
-                    RazonSocial = row["RazonSocial"].ToString().Trim(),
-                    Salas = (int)row["Salas"],
-                    idDistrito = (int)row["idDistrito"],
-                    Direccion = row["Direccion"].ToString().Trim(),
-                    Telefonos = row["Telefonos"].ToString().Trim(),
-                    Detalle = row["Detalle"].ToString().Trim()
-                });
+                Cine cine = CinestarMapper.CineMap(row);
+                cines.Add(cine);
             }
             return cines;
         }
@@ -36,20 +30,36 @@ namespace Cinestar_WebApi.DAO
             List<SqlParameter> parametros = new() { new SqlParameter("@id", id) };
             DataTable dt = _bd.getDataTable("sp_getCine", parametros);
             if (dt.Rows.Count == 0) return null;
-
-            DataRow row = dt.Rows[0];
-            return new Cine
-            {
-                idCine = (int)row["id"],
-                RazonSocial = row["RazonSocial"].ToString().Trim(),
-                Salas = (int)row["Salas"],
-                idDistrito = (int)row["idDistrito"],
-                Direccion = row["Direccion"].ToString().Trim(),
-                Telefonos = row["Telefonos"].ToString().Trim(),
-                Detalle = row["Detalle"].ToString().Trim()
-            };
+            return CinestarMapper.CineMap(dt.Rows[0]);
         }
 
+        public List<CinePelicula> getCinePeliculas(int id)
+        {
+            List<SqlParameter> parametros = new() { new SqlParameter("@idCine", id) };
+            DataTable dt = _bd.getDataTable("sp_getCinePeliculas", parametros);
+            List<CinePelicula> cinespeliculas = new();
+
+            foreach(DataRow row in dt.Rows)
+            {
+                CinePelicula cnpeli = CinestarMapper.CinePeliculasMap(row);
+                cinespeliculas.Add(cnpeli);
+            }
+            return cinespeliculas;
+        }
+
+        public List<CineTarifa> getCineTarifas(int id)
+        {
+            List<SqlParameter> parametros = new() { new SqlParameter("@idCine", id) };
+            DataTable dt = _bd.getDataTable("sp_getCineTarifas", parametros);
+            List<CineTarifa> cinetarifas = new();
+
+            foreach(DataRow row in dt.Rows)
+            {
+                CineTarifa cntarifa = CinestarMapper.CineTarifaMap(row);
+                cinetarifas.Add(cntarifa);
+            }
+            return cinetarifas;
+        }
         
     }
 }
