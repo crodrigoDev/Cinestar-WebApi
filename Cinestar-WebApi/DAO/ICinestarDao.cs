@@ -7,5 +7,7 @@ namespace Cinestar_WebApi.DAO
         Cine getCine(int id);
         List<CinePelicula> getCinePeliculas(int id);
         List<CineTarifa> getCineTarifas(int id);
+        List<Pelicula> getPeliculas(int idEstado);
+        Pelicula getPelicula(int id);
     }
 }

@@ -35,5 +35,28 @@ namespace Cinestar_WebApi.Mapper
                 Precio = row["Precio"].ToString().Trim()
             };
         }
+
+        public static Pelicula PeliculaMap(DataRow row)
+        {
+            var pelicula = new Pelicula
+            {
+                idPelicula = (int)row["id"],
+                Titulo = row["Titulo"].ToString().Trim(),
+                Link = row["Link"].ToString().Trim(),
+                Sipnosis = row["Sinopsis"].ToString().Trim()
+            };
+            if (row.Table.Columns.Contains("FechaEstreno")){
+                pelicula.FechaEstreno = row["FechaEstreno"].ToString().Trim();
+                pelicula.Director = row["Director"].ToString().Trim();
+                pelicula.Generos = row["Generos"].ToString().Trim();
+                pelicula.Duracion = row["Duracion"].ToString().Trim();
+                pelicula.idClasificacion = (int)row["idClasificacion"];
+                pelicula.idEstado = (int)row["idEstado"];
+                pelicula.Reparto = row["Reparto"].ToString().Trim();
+                pelicula.Geneross = row["Geneross"].ToString().Trim();
+
+            }
+            return pelicula;
+        }
     }
 }

@@ -60,6 +60,29 @@ namespace Cinestar_WebApi.DAO
             }
             return cinetarifas;
         }
+
+        // Metodos para obtener las peliculas
+        public List<Pelicula> getPeliculas(int id)
+        {
+            List<SqlParameter> parametros = new() { new SqlParameter("@idEstado", id) };
+            DataTable dt = _bd.getDataTable("sp_getPeliculas", parametros);
+            List<Pelicula> peliculas = new();
+
+            foreach(DataRow row in dt.Rows)
+            {
+                Pelicula pelis = CinestarMapper.PeliculaMap(row);
+                peliculas.Add(pelis);
+            }
+            return peliculas;
+        }
+
+        public Pelicula getPelicula(int id)
+        {
+            List<SqlParameter> parametros = new() { new SqlParameter("@id", id) };
+            DataTable dt = _bd.getDataTable("sp_getPelicula", parametros);
+            if (dt.Rows.Count == 0) return null;
+            return CinestarMapper.PeliculaMap(dt.Rows[0]);
+        }
         
     }
 }

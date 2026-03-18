@@ -13,6 +13,7 @@ namespace Cinestar_WebApi.Controllers
 
         public CinestarController(ICinestarDao dao) => _dao = dao;
 
+        // Controladora para los Cines
         [HttpGet]
         public IActionResult GetCines()
         {
@@ -23,8 +24,8 @@ namespace Cinestar_WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCine(int id)
         {
-            var lista = _dao.getCine(id);
-            return Ok(lista);
+            var cine = _dao.getCine(id);
+            return Ok(cine);
         }
 
         [HttpGet("{id}")]
@@ -38,6 +39,20 @@ namespace Cinestar_WebApi.Controllers
         public IActionResult GetCineTarifas(int id)
         {
             var lista = _dao.getCineTarifas(id);
+            return Ok(lista);
+        }
+
+        // Controlodaroa para las peliculas
+        [HttpGet("{id}")]
+        public IActionResult GetPeliculas(int id)
+        {
+            var lista = _dao.getPeliculas(id);
+            return Ok(lista);
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetPelicula(int id)
+        {
+            var lista = _dao.getPelicula(id);
             return Ok(lista);
         }
     }
