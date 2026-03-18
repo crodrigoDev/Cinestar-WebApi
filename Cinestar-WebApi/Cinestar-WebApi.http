@@ -1,0 +1,10 @@
+@Cinestar_WebApi_HostAddress = http://localhost:5286
+
+GET {{Cinestar_WebApi_HostAddress}}/api/cinestar/cines
+Accept: application/json
+
+GET {{Cinestar_WebApi_HostAddress}}/api/cinestar/cine/1
+Accept: application/json
+
+
+###
