@@ -1,4 +1,4 @@
-@Cinestar_WebApi_HostAddress = http://localhost:5286
+@Cinestar_WebApi_HostAddress = https://localhost:5286
 
 GET {{Cinestar_WebApi_HostAddress}}/api/Cinestar/GetCines
 Accept: application/json

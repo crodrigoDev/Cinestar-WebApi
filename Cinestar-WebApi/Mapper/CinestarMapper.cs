@@ -54,7 +54,6 @@ namespace Cinestar_WebApi.Mapper
                 pelicula.idEstado = (int)row["idEstado"];
                 pelicula.Reparto = row["Reparto"].ToString().Trim();
                 pelicula.Geneross = row["Geneross"].ToString().Trim();
-
             }
             return pelicula;
         }
